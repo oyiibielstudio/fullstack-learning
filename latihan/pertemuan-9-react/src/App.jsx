@@ -137,7 +137,11 @@ function App() {
     localStorage.setItem("keranjang", JSON.stringify(keranjang));
   }, [keranjang]);
 
-  const filteredMenus = menus.filter((menu) => {
+    const [namaCustomer, setNamaCustomer] = useState("");
+    const [nomorCustomer, setNomorCustomer] = useState("");
+    const [catatan, setCatatan] = useState("");
+    
+    const filteredMenus = menus.filter((menu) => {
     const cocokDenganSearch = menu.nama
       .toLowerCase()
       .includes(search.toLowerCase());
@@ -225,6 +229,11 @@ function checkoutWhatsApp() {
     return;
   }
 
+  if (!namaCustomer || !nomorCustomer) {
+    alert("Nama dan nomor WhatsApp wajib diisi.");
+    return;
+  }
+
   const daftarPesanan = keranjang
     .map((item, index) => {
       const subtotal = item.hargaAngka * item.jumlah;
@@ -235,7 +244,9 @@ function checkoutWhatsApp() {
     })
     .join("\n");
 
-  const pesan = `Halo Oyii Coffee, saya mau pesan:\n\n${daftarPesanan}\n\nTotal: Rp${totalHarga.toLocaleString(
+  const pesan = `Halo Oyii Coffee, saya mau pesan.\n\nNama: ${namaCustomer}\nNo WA: ${nomorCustomer}\nCatatan: ${
+    catatan || "-"
+  }\n\nPesanan:\n${daftarPesanan}\n\nTotal: Rp${totalHarga.toLocaleString(
     "id-ID"
   )}`;
 
@@ -321,6 +332,31 @@ function checkoutWhatsApp() {
       <button className="checkout-button" onClick={checkoutWhatsApp}>
         Checkout WhatsApp
       </button>
+
+      <div className="customer-form">
+      <label>Nama Customer</label>
+      <input
+        type="text"
+        placeholder="Masukkan nama"
+        value={namaCustomer}
+        onChange={(e) => setNamaCustomer(e.target.value)}
+      />
+
+      <label>Nomor WhatsApp</label>
+      <input
+        type="text"
+        placeholder="Contoh: 08123456789"
+        value={nomorCustomer}
+        onChange={(e) => setNomorCustomer(e.target.value)}
+      />
+
+      <label>Catatan Pesanan</label>
+      <textarea
+        placeholder="Contoh: less ice, less sugar"
+        value={catatan}
+        onChange={(e) => setCatatan(e.target.value)}
+      ></textarea>
+    </div>
 
       <button className="clear-button" onClick={() => setKeranjang([])}>
         Kosongkan Keranjang

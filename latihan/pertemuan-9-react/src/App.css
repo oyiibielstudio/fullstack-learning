@@ -240,6 +240,41 @@ button:disabled {
   background-color: #166534;
 }
 
+.customer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.customer-form label {
+  font-weight: bold;
+  color: #2b2118;
+}
+
+.customer-form input,
+.customer-form textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  font-size: 14px;
+  background-color: white;
+  color: #2b2118;
+}
+
+.customer-form textarea {
+  min-height: 90px;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+}
+
+.customer-form input:focus,
+.customer-form textarea:focus {
+  outline: none;
+  border-color: #9a6b3f;
+}
+
 .delete-button {
   background-color: #991b1b;
   padding: 8px 14px;
