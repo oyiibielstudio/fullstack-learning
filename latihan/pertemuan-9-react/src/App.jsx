@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 const menus = [
@@ -117,7 +117,25 @@ function MenuCard({ nama, harga, deskripsi, tersedia, bestSeller, onPesan }) {
 function App() {
   const [filter, setFilter] = useState("semua");
   const [search, setSearch] = useState("");
-  const [keranjang, setKeranjang] = useState([]);
+
+  const [keranjang, setKeranjang] = useState(() => {
+  const dataKeranjang = localStorage.getItem("keranjang");
+
+  if (dataKeranjang) {
+    const parsedData = JSON.parse(dataKeranjang);
+
+    return parsedData.map((item) => ({
+      ...item,
+      jumlah: item.jumlah || 1,
+    }));
+  }
+
+  return [];
+});
+
+  useEffect(() => {
+    localStorage.setItem("keranjang", JSON.stringify(keranjang));
+  }, [keranjang]);
 
   const filteredMenus = menus.filter((menu) => {
     const cocokDenganSearch = menu.nama
@@ -138,21 +156,67 @@ function App() {
 
     return cocokDenganSearch;
   });
+function tambahKeKeranjang(menu) {
+  const itemSudahAda = keranjang.find((item) => item.id === menu.id);
 
-  function tambahKeKeranjang(menu) {
-    setKeranjang([...keranjang, menu]);
-  }
+  if (itemSudahAda) {
+    const keranjangBaru = keranjang.map((item) => {
+      if (item.id === menu.id) {
+        return {
+          ...item,
+          jumlah: item.jumlah + 1,
+        };
+      }
 
-  function hapusDariKeranjang(indexYangDihapus) {
-    const keranjangBaru = keranjang.filter((item, index) => {
-      return index !== indexYangDihapus;
+      return item;
     });
 
     setKeranjang(keranjangBaru);
+  } else {
+    setKeranjang([...keranjang, { ...menu, jumlah: 1 }]);
   }
+}
+
+function tambahJumlah(id) {
+  const keranjangBaru = keranjang.map((item) => {
+    if (item.id === id) {
+      return {
+        ...item,
+        jumlah: item.jumlah + 1,
+      };
+    }
+
+    return item;
+  });
+
+  setKeranjang(keranjangBaru);
+}
+
+function kurangJumlah(id) {
+  const keranjangBaru = keranjang.map((item) => {
+    if (item.id === id && item.jumlah > 1) {
+      return {
+        ...item,
+        jumlah: item.jumlah - 1,
+      };
+    }
+
+    return item;
+  });
+
+  setKeranjang(keranjangBaru);
+}
+
+function hapusDariKeranjang(id) {
+  const keranjangBaru = keranjang.filter((item) => item.id !== id);
+  setKeranjang(keranjangBaru);
+}
+  const totalItem = keranjang.reduce((total, item) => {
+    return total + item.jumlah;
+  }, 0);
 
   const totalHarga = keranjang.reduce((total, item) => {
-    return total + item.hargaAngka;
+    return total + item.hargaAngka * item.jumlah;
   }, 0);
 
 function checkoutWhatsApp() {
@@ -163,7 +227,11 @@ function checkoutWhatsApp() {
 
   const daftarPesanan = keranjang
     .map((item, index) => {
-      return `${index + 1}. ${item.nama} - ${item.harga}`;
+      const subtotal = item.hargaAngka * item.jumlah;
+
+      return `${index + 1}. ${item.nama} x${item.jumlah} - Rp${subtotal.toLocaleString(
+        "id-ID"
+      )}`;
     })
     .join("\n");
 
@@ -243,38 +311,53 @@ function checkoutWhatsApp() {
         <p className="empty-message">Menu tidak ditemukan.</p>
       )}
 
-      <div className="cart">
-        <h2>Keranjang Pesanan</h2>
-        <p>Total item: {keranjang.length}</p>
-        <h3>Total harga: Rp{totalHarga.toLocaleString("id-ID")}</h3>
+<div className="cart">
+  <h2>Keranjang Pesanan</h2>
+  <p>Total item: {totalItem}</p>
+  <h3>Total harga: Rp{totalHarga.toLocaleString("id-ID")}</h3>
 
-{keranjang.length > 0 ? (
-  <>
-    <button className="checkout-button" onClick={checkoutWhatsApp}>
-      Checkout WhatsApp
-    </button>
+  {keranjang.length > 0 ? (
+    <>
+      <button className="checkout-button" onClick={checkoutWhatsApp}>
+        Checkout WhatsApp
+      </button>
 
-    <ul>
-      {keranjang.map((item, index) => (
-        <li key={index}>
-          <span>
-            {item.nama} - {item.harga}
-          </span>
+      <button className="clear-button" onClick={() => setKeranjang([])}>
+        Kosongkan Keranjang
+      </button>
 
-          <button
-            className="delete-button"
-            onClick={() => hapusDariKeranjang(index)}
-          >
-            Hapus
-          </button>
-        </li>
-      ))}
-    </ul>
-  </>
-) : (
-  <p>Belum ada pesanan.</p>
-)}
-      </div>
+      <ul>
+        {keranjang.map((item) => (
+          <li key={item.id}>
+            <div className="cart-info">
+              <strong>{item.nama}</strong>
+              <span>
+                {item.jumlah} x {item.harga}
+              </span>
+              <small>
+                Subtotal: Rp
+                {(item.hargaAngka * item.jumlah).toLocaleString("id-ID")}
+              </small>
+            </div>
+
+            <div className="quantity-buttons">
+              <button onClick={() => kurangJumlah(item.id)}>-</button>
+              <button onClick={() => tambahJumlah(item.id)}>+</button>
+              <button
+                className="delete-button"
+                onClick={() => hapusDariKeranjang(item.id)}
+              >
+                Hapus
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
+  ) : (
+    <p>Belum ada pesanan.</p>
+  )}
+</div>
     </main>
   );
 }
