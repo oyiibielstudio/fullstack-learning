@@ -204,6 +204,16 @@ button:disabled {
   font-weight: bold;
 }
 
+.checkout-button {
+  width: 100%;
+  background-color: #15803d;
+  margin-bottom: 20px;
+}
+
+.checkout-button:hover {
+  background-color: #166534;
+}
+
 .delete-button {
   background-color: #991b1b;
   padding: 8px 14px;

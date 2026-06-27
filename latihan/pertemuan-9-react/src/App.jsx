@@ -155,6 +155,30 @@ function App() {
     return total + item.hargaAngka;
   }, 0);
 
+function checkoutWhatsApp() {
+  if (keranjang.length === 0) {
+    alert("Keranjang masih kosong.");
+    return;
+  }
+
+  const daftarPesanan = keranjang
+    .map((item, index) => {
+      return `${index + 1}. ${item.nama} - ${item.harga}`;
+    })
+    .join("\n");
+
+  const pesan = `Halo Oyii Coffee, saya mau pesan:\n\n${daftarPesanan}\n\nTotal: Rp${totalHarga.toLocaleString(
+    "id-ID"
+  )}`;
+
+  const nomorWhatsApp = "6281234567890";
+  const url = `https://wa.me/${nomorWhatsApp}?text=${encodeURIComponent(
+    pesan
+  )}`;
+
+  window.open(url, "_blank");
+}
+
   return (
     <main className="container">
       <div className="header">
@@ -224,26 +248,32 @@ function App() {
         <p>Total item: {keranjang.length}</p>
         <h3>Total harga: Rp{totalHarga.toLocaleString("id-ID")}</h3>
 
-        {keranjang.length > 0 ? (
-          <ul>
-            {keranjang.map((item, index) => (
-              <li key={index}>
-                <span>
-                  {item.nama} - {item.harga}
-                </span>
+{keranjang.length > 0 ? (
+  <>
+    <button className="checkout-button" onClick={checkoutWhatsApp}>
+      Checkout WhatsApp
+    </button>
 
-                <button
-                  className="delete-button"
-                  onClick={() => hapusDariKeranjang(index)}
-                >
-                  Hapus
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Belum ada pesanan.</p>
-        )}
+    <ul>
+      {keranjang.map((item, index) => (
+        <li key={index}>
+          <span>
+            {item.nama} - {item.harga}
+          </span>
+
+          <button
+            className="delete-button"
+            onClick={() => hapusDariKeranjang(index)}
+          >
+            Hapus
+          </button>
+        </li>
+      ))}
+    </ul>
+  </>
+) : (
+  <p>Belum ada pesanan.</p>
+)}
       </div>
     </main>
   );
