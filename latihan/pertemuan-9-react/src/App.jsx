@@ -106,28 +106,41 @@ function MenuCard({ nama, harga, deskripsi, tersedia, bestSeller }) {
 
 function App() {
   const [filter, setFilter] = useState("semua");
+  const [search, setSearch] = useState("");
 
-  const filteredMenus = menus.filter((menu) => {
-    if (filter === "tersedia") {
-      return menu.tersedia === true;
-    }
+const filteredMenus = menus.filter((menu) => {
+  const cocokDenganSearch = menu.nama
+    .toLowerCase()
+    .includes(search.toLowerCase());
 
-    if (filter === "habis") {
-      return menu.tersedia === false;
-    }
+  if (filter === "tersedia") {
+    return menu.tersedia === true && cocokDenganSearch;
+  }
 
-    if (filter === "bestSeller") {
-      return menu.bestSeller === true;
-    }
+  if (filter === "habis") {
+    return menu.tersedia === false && cocokDenganSearch;
+  }
 
-    return true;
-  });
+  if (filter === "bestSeller") {
+    return menu.bestSeller === true && cocokDenganSearch;
+  }
 
+  return cocokDenganSearch;
+});
   return (
     <main className="container">
       <div className="header">
         <p>Oyii Coffee</p>
         <h1>Menu Favorit Kami</h1>
+      </div>
+
+      <div className="search-box">
+        <input
+          type="text"
+          placeholder="Cari menu..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
       <div className="filter-buttons">
@@ -160,18 +173,22 @@ function App() {
         </button>
       </div>
 
-      <div className="menu-grid">
-        {filteredMenus.map((menu) => (
-          <MenuCard
-            key={menu.id}
-            nama={menu.nama}
-            harga={menu.harga}
-            deskripsi={menu.deskripsi}
-            tersedia={menu.tersedia}
-            bestSeller={menu.bestSeller}
-          />
-        ))}
-      </div>
+{filteredMenus.length > 0 ? (
+  <div className="menu-grid">
+    {filteredMenus.map((menu) => (
+      <MenuCard
+        key={menu.id}
+        nama={menu.nama}
+        harga={menu.harga}
+        deskripsi={menu.deskripsi}
+        tersedia={menu.tersedia}
+        bestSeller={menu.bestSeller}
+      />
+    ))}
+  </div>
+) : (
+  <p className="empty-message">Menu tidak ditemukan.</p>
+)}
     </main>
   );
 }

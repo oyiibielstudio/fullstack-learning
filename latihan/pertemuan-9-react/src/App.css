@@ -105,6 +105,28 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.search-box input {
+  width: 100%;
+  max-width: 420px;
+  padding: 14px 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  font-size: 16px;
+  background-color: white;
+  color: #2b2118;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #9a6b3f;
+}
+
 @media (max-width: 1024px) {
   .menu-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -142,6 +164,13 @@ button:disabled {
   background-color: #9a6b3f;
   color: white;
   border-color: #9a6b3f;
+}
+
+.empty-message {
+  text-align: center;
+  color: #6b7280;
+  font-size: 18px;
+  margin-top: 40px;
 }
 
   button {
