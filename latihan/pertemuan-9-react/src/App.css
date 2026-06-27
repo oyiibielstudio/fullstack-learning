@@ -5,83 +5,146 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #111827;
-  color: white;
+  background-color: #f8f5f0;
+  color: #2b2118;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 80px;
-  border-bottom: 1px solid #374151;
+.container {
+  min-height: 100vh;
+  padding: 80px;
 }
 
-.navbar h2 {
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header p {
+  color: #9a6b3f;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.header h1 {
+  font-size: 44px;
   margin: 0;
+  color: #2b2118;
 }
 
-.nav-links {
-  display: flex;
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
-.nav-links a {
+.menu-card {
+  position: relative;
+  background-color: white;
+  padding: 28px;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.menu-card h3 {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+
+.menu-card p {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.menu-card h4 {
+  color: #9a6b3f;
+  font-size: 18px;
+  margin: 20px 0 12px;
+}
+
+.badge {
+  display: inline-block;
+  background-color: #9a6b3f;
   color: white;
-  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
   font-weight: bold;
 }
 
-.hero {
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 80px;
-  max-width: 900px;
+.status {
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
-.hero p {
-  color: #9ca3af;
-  font-size: 20px;
-  margin-bottom: 10px;
+.tersedia {
+  color: green;
 }
 
-.hero h1 {
-  font-size: 64px;
-  line-height: 1.1;
-  margin: 0 0 30px;
+.habis {
+  color: red;
+}
+
+.habis-card {
+  opacity: 0.6;
 }
 
 button {
-  width: fit-content;
-  background-color: white;
-  color: #111827;
+  background-color: #2b2118;
+  color: white;
   border: none;
-  padding: 14px 24px;
+  padding: 12px 18px;
   border-radius: 999px;
-  font-weight: bold;
   cursor: pointer;
+  font-weight: bold;
 }
 
-button:hover {
-  background-color: #e5e7eb;
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    padding: 20px;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .hero {
+  .container {
     padding: 40px 20px;
-    text-align: center;
-    align-items: center;
   }
 
-  .hero h1 {
-    font-size: 40px;
+  .header h1 {
+    font-size: 32px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filter-buttons button {
+  background-color: white;
+  color: #2b2118;
+  border: 1px solid #d1d5db;
+}
+
+.filter-buttons button.active {
+  background-color: #9a6b3f;
+  color: white;
+  border-color: #9a6b3f;
+}
+
+  button {
+    width: 100%;
   }
 }
