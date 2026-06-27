@@ -6,6 +6,7 @@ const menus = [
     id: 1,
     nama: "Ice Coffee Latte",
     harga: "Rp18.000",
+    hargaAngka: 18000,
     deskripsi: "Kopi susu creamy dengan rasa yang seimbang.",
     tersedia: true,
     bestSeller: true,
@@ -14,6 +15,7 @@ const menus = [
     id: 2,
     nama: "Matcha Latte",
     harga: "Rp20.000",
+    hargaAngka: 20000,
     deskripsi: "Matcha lembut dengan susu yang creamy.",
     tersedia: true,
     bestSeller: true,
@@ -22,6 +24,7 @@ const menus = [
     id: 3,
     nama: "Chocolate Cookies",
     harga: "Rp15.000",
+    hargaAngka: 15000,
     deskripsi: "Cookies manis dengan chocochips yang melimpah.",
     tersedia: false,
     bestSeller: false,
@@ -30,6 +33,7 @@ const menus = [
     id: 4,
     nama: "Americano",
     harga: "Rp16.000",
+    hargaAngka: 16000,
     deskripsi: "Kopi hitam ringan untuk yang suka rasa clean.",
     tersedia: true,
     bestSeller: false,
@@ -38,6 +42,7 @@ const menus = [
     id: 5,
     nama: "Vanila",
     harga: "Rp17.000",
+    hargaAngka: 17000,
     deskripsi: "Kopi susu dengan aroma vanila.",
     tersedia: true,
     bestSeller: false,
@@ -46,6 +51,7 @@ const menus = [
     id: 6,
     nama: "Red Velvet",
     harga: "Rp19.000",
+    hargaAngka: 19000,
     deskripsi: "Minuman manis creamy dengan rasa red velvet.",
     tersedia: false,
     bestSeller: false,
@@ -54,6 +60,7 @@ const menus = [
     id: 7,
     nama: "Taro",
     harga: "Rp21.000",
+    hargaAngka: 21000,
     deskripsi: "Minuman manis creamy dengan rasa taro.",
     tersedia: true,
     bestSeller: false,
@@ -62,6 +69,7 @@ const menus = [
     id: 8,
     nama: "Lotus Biscoff",
     harga: "Rp23.000",
+    hargaAngka: 23000,
     deskripsi: "Minuman manis creamy dengan rasa lotus.",
     tersedia: true,
     bestSeller: true,
@@ -70,6 +78,7 @@ const menus = [
     id: 9,
     nama: "Caramel Macchiato",
     harga: "Rp24.000",
+    hargaAngka: 24000,
     deskripsi: "Kopi susu dengan caramel yang manis dan creamy.",
     tersedia: true,
     bestSeller: true,
@@ -78,6 +87,7 @@ const menus = [
     id: 10,
     nama: "Strawberry Milk",
     harga: "Rp18.000",
+    hargaAngka: 18000,
     deskripsi: "Susu strawberry manis dan segar.",
     tersedia: false,
     bestSeller: false,
@@ -140,6 +150,10 @@ function App() {
 
     setKeranjang(keranjangBaru);
   }
+
+  const totalHarga = keranjang.reduce((total, item) => {
+    return total + item.hargaAngka;
+  }, 0);
 
   return (
     <main className="container">
@@ -208,6 +222,7 @@ function App() {
       <div className="cart">
         <h2>Keranjang Pesanan</h2>
         <p>Total item: {keranjang.length}</p>
+        <h3>Total harga: Rp{totalHarga.toLocaleString("id-ID")}</h3>
 
         {keranjang.length > 0 ? (
           <ul>

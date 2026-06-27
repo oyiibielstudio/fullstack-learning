@@ -175,6 +175,12 @@ button:disabled {
   color: #2b2118;
 }
 
+.cart h3 {
+  color: #9a6b3f;
+  font-size: 22px;
+  margin-bottom: 24px;
+}
+
 .cart p {
   color: #4b5563;
 }
