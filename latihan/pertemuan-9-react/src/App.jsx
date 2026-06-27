@@ -304,7 +304,7 @@ function checkoutWhatsApp() {
       ) : (
         <p className="empty-message">Menu tidak ditemukan.</p>
       )}
-    <Cart
+<Cart
   keranjang={keranjang}
   totalItem={totalItem}
   totalHarga={totalHarga}
