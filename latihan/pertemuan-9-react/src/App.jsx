@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import MenuCard from "./components/MenuCard";
+import Cart from "./components/Cart";
 import "./App.css";
 
 const menus = [
@@ -94,25 +96,6 @@ const menus = [
   },
 ];
 
-function MenuCard({ nama, harga, deskripsi, tersedia, bestSeller, onPesan }) {
-  return (
-    <div className={`menu-card ${!tersedia ? "habis-card" : ""}`}>
-      {bestSeller && <span className="badge">Best Seller</span>}
-
-      <h3>{nama}</h3>
-      <p>{deskripsi}</p>
-      <h4>{harga}</h4>
-
-      <p className={tersedia ? "status tersedia" : "status habis"}>
-        {tersedia ? "Tersedia" : "Habis"}
-      </p>
-
-      <button disabled={!tersedia} onClick={onPesan}>
-        {tersedia ? "Pesan Sekarang" : "Tidak Tersedia"}
-      </button>
-    </div>
-  );
-}
 
 function App() {
   const [filter, setFilter] = useState("semua");
@@ -321,79 +304,22 @@ function checkoutWhatsApp() {
       ) : (
         <p className="empty-message">Menu tidak ditemukan.</p>
       )}
-
-<div className="cart">
-  <h2>Keranjang Pesanan</h2>
-  <p>Total item: {totalItem}</p>
-  <h3>Total harga: Rp{totalHarga.toLocaleString("id-ID")}</h3>
-
-  {keranjang.length > 0 ? (
-    <>
-      <button className="checkout-button" onClick={checkoutWhatsApp}>
-        Checkout WhatsApp
-      </button>
-
-      <div className="customer-form">
-      <label>Nama Customer</label>
-      <input
-        type="text"
-        placeholder="Masukkan nama"
-        value={namaCustomer}
-        onChange={(e) => setNamaCustomer(e.target.value)}
-      />
-
-      <label>Nomor WhatsApp</label>
-      <input
-        type="text"
-        placeholder="Contoh: 08123456789"
-        value={nomorCustomer}
-        onChange={(e) => setNomorCustomer(e.target.value)}
-      />
-
-      <label>Catatan Pesanan</label>
-      <textarea
-        placeholder="Contoh: less ice, less sugar"
-        value={catatan}
-        onChange={(e) => setCatatan(e.target.value)}
-      ></textarea>
-    </div>
-
-      <button className="clear-button" onClick={() => setKeranjang([])}>
-        Kosongkan Keranjang
-      </button>
-
-      <ul>
-        {keranjang.map((item) => (
-          <li key={item.id}>
-            <div className="cart-info">
-              <strong>{item.nama}</strong>
-              <span>
-                {item.jumlah} x {item.harga}
-              </span>
-              <small>
-                Subtotal: Rp
-                {(item.hargaAngka * item.jumlah).toLocaleString("id-ID")}
-              </small>
-            </div>
-
-            <div className="quantity-buttons">
-              <button onClick={() => kurangJumlah(item.id)}>-</button>
-              <button onClick={() => tambahJumlah(item.id)}>+</button>
-              <button
-                className="delete-button"
-                onClick={() => hapusDariKeranjang(item.id)}
-              >
-                Hapus
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </>
-  ) : (
-    <p>Belum ada pesanan.</p>
-  )}
-</div>
+    <Cart
+  keranjang={keranjang}
+  totalItem={totalItem}
+  totalHarga={totalHarga}
+  checkoutWhatsApp={checkoutWhatsApp}
+  setKeranjang={setKeranjang}
+  namaCustomer={namaCustomer}
+  setNamaCustomer={setNamaCustomer}
+  nomorCustomer={nomorCustomer}
+  setNomorCustomer={setNomorCustomer}
+  catatan={catatan}
+  setCatatan={setCatatan}
+  tambahJumlah={tambahJumlah}
+  kurangJumlah={kurangJumlah}
+  hapusDariKeranjang={hapusDariKeranjang}
+/>
     </main>
   );
 }
