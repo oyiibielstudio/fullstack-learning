@@ -10,6 +10,7 @@ function Cart({
   setNomorCustomer,
   catatan,
   setCatatan,
+  errors,
   tambahJumlah,
   kurangJumlah,
   hapusDariKeranjang,
@@ -22,31 +23,36 @@ function Cart({
 
       {keranjang.length > 0 ? (
         <>
-          <div className="customer-form">
-            <label>Nama Customer</label>
-            <input
-              type="text"
-              placeholder="Masukkan nama"
-              value={namaCustomer}
-              onChange={(e) => setNamaCustomer(e.target.value)}
-            />
+        <div className="customer-form">
+        <label>Nama Customer</label>
+        <input
+            type="text"
+            placeholder="Masukkan nama"
+            value={namaCustomer}
+            onChange={(e) => setNamaCustomer(e.target.value)}
+        />
+        {errors.nama && <small className="error-text">{errors.nama}</small>}
 
-            <label>Nomor WhatsApp</label>
-            <input
-              type="text"
-              placeholder="Contoh: 08123456789"
-              value={nomorCustomer}
-              onChange={(e) => setNomorCustomer(e.target.value)}
-            />
+        <label>Nomor WhatsApp</label>
+        <input
+            type="tel"
+            placeholder="Contoh: 08123456789"
+            value={nomorCustomer}
+            onChange={(e) => setNomorCustomer(e.target.value)}
+        />
+        {errors.nomor && <small className="error-text">{errors.nomor}</small>}
 
-            <label>Catatan Pesanan</label>
-            <textarea
-              placeholder="Contoh: less ice, less sugar"
-              value={catatan}
-              onChange={(e) => setCatatan(e.target.value)}
-            ></textarea>
-          </div>
+        <label>Catatan Pesanan</label>
+        <textarea
+            placeholder="Contoh: less ice, less sugar"
+            value={catatan}
+            maxLength="100"
+            onChange={(e) => setCatatan(e.target.value)}
+        ></textarea>
 
+        <small className="form-hint">{catatan.length}/100 karakter</small>
+        {errors.catatan && <small className="error-text">{errors.catatan}</small>}
+        </div>
           <button className="checkout-button" onClick={checkoutWhatsApp}>
             Checkout WhatsApp
           </button>
