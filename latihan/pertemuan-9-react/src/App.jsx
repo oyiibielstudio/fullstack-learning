@@ -194,52 +194,48 @@ function App() {
   }
 
   const totalMenu = menus.length;
-
-  const totalTersedia = menus.filter((menu) => {
-    return menu.tersedia === true;
-  }).length;
-
-  const totalBestSeller = menus.filter((menu) => {
-    return menu.bestSeller === true;
-  }).length;
+  const totalTersedia = menus.filter((menu) => menu.tersedia).length;
+  const totalBestSeller = menus.filter((menu) => menu.bestSeller).length;
 
   return (
-    <main className="container">
-      <Header
-        totalMenu={totalMenu}
-        totalTersedia={totalTersedia}
-        totalBestSeller={totalBestSeller}
-      />
+    <main className="page">
+      <section className="app-container">
+        <Header
+          totalMenu={totalMenu}
+          totalTersedia={totalTersedia}
+          totalBestSeller={totalBestSeller}
+        />
 
-      <MenuControls
-        search={search}
-        setSearch={setSearch}
-        filter={filter}
-        setFilter={setFilter}
-      />
+        <MenuControls
+          search={search}
+          setSearch={setSearch}
+          filter={filter}
+          setFilter={setFilter}
+        />
 
-      <MenuList
-        filteredMenus={filteredMenus}
-        tambahKeKeranjang={tambahKeKeranjang}
-      />
+        <MenuList
+          filteredMenus={filteredMenus}
+          tambahKeKeranjang={tambahKeKeranjang}
+        />
 
-      <Cart
-        keranjang={keranjang}
-        totalItem={totalItem}
-        totalHarga={totalHarga}
-        checkoutWhatsApp={checkoutWhatsApp}
-        setKeranjang={setKeranjang}
-        namaCustomer={namaCustomer}
-        setNamaCustomer={setNamaCustomer}
-        nomorCustomer={nomorCustomer}
-        setNomorCustomer={setNomorCustomer}
-        catatan={catatan}
-        setCatatan={setCatatan}
-        errors={errors}
-        tambahJumlah={tambahJumlah}
-        kurangJumlah={kurangJumlah}
-        hapusDariKeranjang={hapusDariKeranjang}
-      />
+        <Cart
+          keranjang={keranjang}
+          totalItem={totalItem}
+          totalHarga={totalHarga}
+          checkoutWhatsApp={checkoutWhatsApp}
+          setKeranjang={setKeranjang}
+          namaCustomer={namaCustomer}
+          setNamaCustomer={setNamaCustomer}
+          nomorCustomer={nomorCustomer}
+          setNomorCustomer={setNomorCustomer}
+          catatan={catatan}
+          setCatatan={setCatatan}
+          errors={errors}
+          tambahJumlah={tambahJumlah}
+          kurangJumlah={kurangJumlah}
+          hapusDariKeranjang={hapusDariKeranjang}
+        />
+      </section>
     </main>
   );
 }

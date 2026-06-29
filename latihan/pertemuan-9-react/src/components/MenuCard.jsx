@@ -1,20 +1,32 @@
 function MenuCard({ nama, harga, deskripsi, tersedia, bestSeller, onPesan }) {
   return (
-    <div className={`menu-card ${!tersedia ? "habis-card" : ""}`}>
-      {bestSeller && <span className="badge">Best Seller</span>}
+    <article className={`menu-card ${!tersedia ? "habis-card" : ""}`}>
+      <div className="menu-card-top">
+        <div className="badge-wrap">
+          {bestSeller ? (
+            <span className="badge">Best Seller</span>
+          ) : (
+            <span className="badge-placeholder"></span>
+          )}
+        </div>
 
-      <h3>{nama}</h3>
-      <p>{deskripsi}</p>
-      <h4>{harga}</h4>
+        <h3>{nama}</h3>
 
-      <p className={tersedia ? "status tersedia" : "status habis"}>
-        {tersedia ? "Tersedia" : "Habis"}
-      </p>
+        <p>{deskripsi}</p>
+      </div>
 
-      <button disabled={!tersedia} onClick={onPesan}>
-        {tersedia ? "Pesan Sekarang" : "Tidak Tersedia"}
-      </button>
-    </div>
+      <div className="menu-card-bottom">
+        <h4>{harga}</h4>
+
+        <span className={tersedia ? "status tersedia" : "status habis"}>
+          {tersedia ? "Tersedia" : "Habis"}
+        </span>
+
+        <button disabled={!tersedia} onClick={onPesan}>
+          {tersedia ? "Pesan Sekarang" : "Tidak Tersedia"}
+        </button>
+      </div>
+    </article>
   );
 }
 

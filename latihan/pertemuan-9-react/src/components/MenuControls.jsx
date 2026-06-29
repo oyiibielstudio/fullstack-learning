@@ -1,14 +1,12 @@
 function MenuControls({ search, setSearch, filter, setFilter }) {
   return (
-    <>
-      <div className="search-box">
-        <input
-          type="text"
-          placeholder="Cari menu..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+    <section className="menu-controls">
+      <input
+        type="text"
+        placeholder="Cari menu..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
       <div className="filter-buttons">
         <button
@@ -39,7 +37,7 @@ function MenuControls({ search, setSearch, filter, setFilter }) {
           Best Seller
         </button>
       </div>
-    </>
+    </section>
   );
 }
 

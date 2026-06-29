@@ -1,32 +1,32 @@
 function Header({ totalMenu, totalTersedia, totalBestSeller }) {
   return (
-    <div className="header">
-      <p className="header-label">Oyii Coffee</p>
+    <header className="hero">
+      <div className="hero-badge">Oyii Coffee</div>
 
-      <h1>Menu Favorit Kami</h1>
+      <h1>Order coffee favoritmu tanpa ribet.</h1>
 
-      <p className="header-subtitle">
-        Pilih menu favorit kamu, masukkan ke keranjang, lalu checkout langsung
-        lewat WhatsApp.
+      <p>
+        Pilih menu, cari minuman favorit, masukkan ke keranjang, lalu checkout
+        langsung lewat WhatsApp.
       </p>
 
       <div className="stats-grid">
         <div className="stat-card">
-          <h3>{totalMenu}</h3>
-          <p>Total Menu</p>
+          <strong>{totalMenu}</strong>
+          <span>Total Menu</span>
         </div>
 
         <div className="stat-card">
-          <h3>{totalTersedia}</h3>
-          <p>Tersedia</p>
+          <strong>{totalTersedia}</strong>
+          <span>Tersedia</span>
         </div>
 
         <div className="stat-card">
-          <h3>{totalBestSeller}</h3>
-          <p>Best Seller</p>
+          <strong>{totalBestSeller}</strong>
+          <span>Best Seller</span>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 

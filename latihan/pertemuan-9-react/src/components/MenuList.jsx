@@ -6,19 +6,26 @@ function MenuList({ filteredMenus, tambahKeKeranjang }) {
   }
 
   return (
-    <div className="menu-grid">
-      {filteredMenus.map((menu) => (
-        <MenuCard
-          key={menu.id}
-          nama={menu.nama}
-          harga={menu.harga}
-          deskripsi={menu.deskripsi}
-          tersedia={menu.tersedia}
-          bestSeller={menu.bestSeller}
-          onPesan={() => tambahKeKeranjang(menu)}
-        />
-      ))}
-    </div>
+    <section className="menu-section">
+      <div className="section-title">
+        <span>Our Menu</span>
+        <h2>Menu Favorit Kami</h2>
+      </div>
+
+      <div className="menu-grid">
+        {filteredMenus.map((menu) => (
+          <MenuCard
+            key={menu.id}
+            nama={menu.nama}
+            harga={menu.harga}
+            deskripsi={menu.deskripsi}
+            tersedia={menu.tersedia}
+            bestSeller={menu.bestSeller}
+            onPesan={() => tambahKeKeranjang(menu)}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 
